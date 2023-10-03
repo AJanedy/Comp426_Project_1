@@ -25,7 +25,10 @@ func (game *SpaceShooter) Update() error {
 		game.moveDown = false
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+		//game.soundPlayer.Rewind()
+		//game.soundPlayer.Play()
 		fmt.Println("pew")
+
 	}
 	if game.moveUp && game.yloc >= 5 {
 		game.yloc -= 3

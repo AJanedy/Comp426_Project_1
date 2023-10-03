@@ -15,6 +15,9 @@ type SpaceShooter struct {
 	score           int
 	backgroundXView int
 	background      *ebiten.Image
+
+	audioContext *audio.Context
+	soundPlayer  *audio.Player
 }
 
 type Shot struct {
@@ -33,5 +36,4 @@ type Enemy struct {
 type gameSounds struct {
 	audioContext *audio.Context
 	soundPlayer  *audio.Player
-	counter      int
 }
