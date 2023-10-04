@@ -25,8 +25,8 @@ func (game *SpaceShooter) Update() error {
 		game.moveDown = false
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
-		//game.soundPlayer.Rewind()
-		//game.soundPlayer.Play()
+		game.soundPlayer.Rewind()
+		game.soundPlayer.Play()
 		fmt.Println("pew")
 
 	}

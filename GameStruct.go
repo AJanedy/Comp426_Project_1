@@ -7,20 +7,21 @@ import (
 
 type SpaceShooter struct {
 	player          *ebiten.Image
-	laser           *ebiten.Image
+	background      *ebiten.Image
 	xloc            int
 	yloc            int
 	moveUp          bool
 	moveDown        bool
 	score           int
 	backgroundXView int
-	background      *ebiten.Image
-
-	audioContext *audio.Context
-	soundPlayer  *audio.Player
+	audioContext    *audio.Context
+	soundPlayer     *audio.Player
+	gameSounds      []GameSounds
+	laser           []Shot
 }
 
 type Shot struct {
+	laser  *ebiten.Image
 	xLoc   int
 	yLoc   int
 	deltaX int
@@ -33,7 +34,7 @@ type Enemy struct {
 	deltaX int
 }
 
-type gameSounds struct {
+type GameSounds struct {
 	audioContext *audio.Context
 	soundPlayer  *audio.Player
 }
