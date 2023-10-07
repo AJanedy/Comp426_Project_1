@@ -16,8 +16,8 @@ type SpaceShooter struct {
 	backgroundXView int
 	audioContext    *audio.Context
 	soundPlayer     *audio.Player
-	gameSounds      []GameSounds
-	laser           []Shot
+	lasers          []Shot
+	enemies         []Enemy
 }
 
 type Shot struct {
@@ -28,10 +28,10 @@ type Shot struct {
 }
 
 type Enemy struct {
-	enemy  *ebiten.Image
-	xLoc   int
-	yLoc   int
-	deltaX int
+	enemy *ebiten.Image
+	xLoc  int
+	yLoc  int
+	//deltaX int
 }
 
 type GameSounds struct {

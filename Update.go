@@ -12,6 +12,9 @@ func (game *SpaceShooter) Update() error {
 	game.backgroundXView -= 4
 	game.backgroundXView %= maxX
 
+	for _, enemy := range game.enemies {
+		enemy.xLoc -= 2
+	}
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowUp) {
 		game.moveUp = true
 	}
@@ -28,7 +31,6 @@ func (game *SpaceShooter) Update() error {
 		game.soundPlayer.Rewind()
 		game.soundPlayer.Play()
 		fmt.Println("pew")
-
 	}
 	if game.moveUp && game.yloc >= 5 {
 		game.yloc -= 3

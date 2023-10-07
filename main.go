@@ -22,20 +22,33 @@ func main() {
 		fmt.Println("Unable to load player image", err)
 	}
 
-	//laserPict, _, err := ebitenutil.NewImageFromFile("blue_laser.png")
-	//if err != nil {
-	//	fmt.Println("Unable to load laser image", err)
-	//}
-
+	laserPict, _, err := ebitenutil.NewImageFromFile("blue_laser.png")
+	if err != nil {
+		fmt.Println("Unable to load laser image", err)
+	}
+	allLasers := make([]Shot, 0, 20)
+	for i := 0; i < 0; i++ {
+		allLasers = append(allLasers, NewLaser(50, 9, 5, laserPict))
+	}
+	enemyPict, _, err := ebitenutil.NewImageFromFile("Titan.png")
+	if err != nil {
+		fmt.Println("Unable to load enemy ship", err)
+	}
+	allEnemies := make([]Enemy, 0, 5)
+	for i := 0; i < 4; i++ {
+		allEnemies = append(allEnemies, NewEnemy(928, 928, enemyPict))
+	}
 	const SOUND_SAMPLE_RATE = 48000
 	soundContext := audio.NewContext(SOUND_SAMPLE_RATE)
 
 	thisGameInstance := SpaceShooter{
 		player: playerPict, xloc: 15, yloc: 500,
-		background: backgroundPict,
-		//laser:        laserPict,
+		background:   backgroundPict,
+		lasers:       allLasers,
+		enemies:      allEnemies,
 		audioContext: soundContext,
 		soundPlayer:  LoadWav("pewpew.wav", soundContext),
+		score:        0,
 	}
 	err = ebiten.RunGame(&thisGameInstance)
 	if err != nil {
