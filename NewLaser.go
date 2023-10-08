@@ -2,11 +2,11 @@ package main
 
 import "github.com/hajimehoshi/ebiten/v2"
 
-func NewLaser(x int, y int, Delta int, image *ebiten.Image) Shot {
+func NewLaser(x int, y int, image *ebiten.Image) Shot {
 	return Shot{
-		laser:  image,
-		xLoc:   x,
-		yLoc:   y,
-		deltaX: Delta,
+		laser: image,
+		xLoc:  x,
+		yLoc:  y,
+		//deltaX: Delta,
 	}
 }

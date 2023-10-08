@@ -7,9 +7,11 @@ import (
 
 type SpaceShooter struct {
 	player          *ebiten.Image
-	background      *ebiten.Image
 	xloc            int
 	yloc            int
+	background      *ebiten.Image
+	enemyPict       *ebiten.Image
+	laserPict       *ebiten.Image
 	moveUp          bool
 	moveDown        bool
 	score           int

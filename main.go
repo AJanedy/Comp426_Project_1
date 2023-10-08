@@ -27,15 +27,13 @@ func main() {
 		fmt.Println("Unable to load laser image", err)
 	}
 	allLasers := make([]Shot, 0, 20)
-	for i := 0; i < 0; i++ {
-		allLasers = append(allLasers, NewLaser(50, 9, 5, laserPict))
-	}
+
 	enemyPict, _, err := ebitenutil.NewImageFromFile("Titan.png")
 	if err != nil {
 		fmt.Println("Unable to load enemy ship", err)
 	}
 	allEnemies := make([]Enemy, 0, 5)
-	for i := 0; i < 4; i++ {
+	for i := 0; i < cap(allEnemies); i++ {
 		allEnemies = append(allEnemies, NewEnemy(928, 928, enemyPict))
 	}
 	const SOUND_SAMPLE_RATE = 48000
@@ -44,6 +42,8 @@ func main() {
 	thisGameInstance := SpaceShooter{
 		player: playerPict, xloc: 15, yloc: 500,
 		background:   backgroundPict,
+		enemyPict:    enemyPict,
+		laserPict:    laserPict,
 		lasers:       allLasers,
 		enemies:      allEnemies,
 		audioContext: soundContext,
