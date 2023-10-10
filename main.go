@@ -5,6 +5,10 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/audio"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/examples/resources/fonts"
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
+	"log"
 	"math/rand"
 )
 
@@ -40,6 +44,19 @@ func main() {
 	const SOUND_SAMPLE_RATE = 48000
 	soundContext := audio.NewContext(SOUND_SAMPLE_RATE)
 
+	tt, err := opentype.Parse(fonts.MPlus1pRegular_ttf)
+	if err != nil {
+		log.Fatal(err)
+	}
+	scoreFont, err := opentype.NewFace(tt, &opentype.FaceOptions{
+		Size:    24,
+		DPI:     72,
+		Hinting: font.HintingFull,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	thisGameInstance := GameStruct{
 		player: playerPict, xLoc: 15, yloc: 500,
 		background:   backgroundPict,
@@ -48,8 +65,10 @@ func main() {
 		lasers:       allLasers,
 		enemies:      allEnemies,
 		audioContext: soundContext,
-		soundPlayer:  LoadWav("pewpew.wav", soundContext),
+		pewPewSound:  LoadWav("pewpew.wav", soundContext),
+		popSound:     LoadWav("pop.wav", soundContext),
 		score:        0,
+		typeface:     scoreFont,
 	}
 	err = ebiten.RunGame(&thisGameInstance)
 	if err != nil {

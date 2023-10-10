@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/hajimehoshi/ebiten/v2"
 	_ "image/png"
+	"strconv"
 )
 
 func (game *GameStruct) Draw(screen *ebiten.Image) {
@@ -29,15 +30,8 @@ func (game *GameStruct) Draw(screen *ebiten.Image) {
 		drawOps.GeoM.Translate(float64(enemy.xLoc), float64(enemy.yLoc))
 		screen.DrawImage(enemy.enemy, &drawOps)
 	}
-	//FIXME: Line 39, do not know what to pass into the second parameter
-	//Read something about using a TTF file, not sure how to apply this information
 
-	//font, err := truetype.Parse(gomedium.TTF)
-	//if err != nil {
-	//	fmt.Println("Unable to load laser image", err)
-	//}
-	//
-	//DrawCenteredText(screen, font, "Score: "+strconv.Itoa(game.score), 500, 10)
+	DrawCenteredText(screen, game.typeface, "Score: "+strconv.Itoa(game.score), 500, 20)
 }
 
 func (game GameStruct) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {

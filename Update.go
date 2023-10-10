@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"math/rand"
@@ -13,24 +12,25 @@ func (game *GameStruct) Update() error {
 	game.backgroundXView -= 4
 	game.backgroundXView %= maxX
 
-	//FIXME: I feel like this should loop through the slice of enemy sprites to move them
-	//In main(), line 34, an empty slice is made, it is then filled to capacity with
-	//randomly placed enemy sprites and passed into the game struct
 	for i, _ := range game.enemies {
 		game.enemies[i].xLoc -= 2
 		if game.enemies[i].xLoc < -80 {
 			game.enemies[i] = game.enemies[len(game.enemies)-1]
 			game.enemies[len(game.enemies)-1] = NewEnemy(1010, rand.Intn(928), game.enemyPict)
+			game.score -= 1
 		}
 	}
 	for i, _ := range game.lasers {
 		for j, _ := range game.enemies {
-			CheckCollision(game.enemies[j], game.lasers[i], *game)
+			if CheckCollision(game.enemies[j], game.lasers[i], game) {
+				game.popSound.Rewind()
+				game.popSound.Play()
+				game.score += 1
+				game.enemies[j] = NewEnemy(rand.Intn(928)+928, rand.Intn(928), game.enemyPict)
+				game.lasers[i] = NewLaser(2000, 0, game.laserPict)
+			}
 		}
 	}
-	//FIXME: In the same regard I feel as though this should be looping through laser sprites to move them
-	//In main(), line 29, empty slice made, that empty slice is then passed into the game struct
-	//The list gets lasers appended in this function on line 43
 	for i, _ := range game.lasers {
 		game.lasers[i].xLoc += 10
 	}
@@ -47,16 +47,15 @@ func (game *GameStruct) Update() error {
 		game.moveDown = false
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
-		game.soundPlayer.Rewind()
-		game.soundPlayer.Play()
-		fmt.Println("pew")
+		game.pewPewSound.Rewind()
+		game.pewPewSound.Play()
 		game.lasers = append(game.lasers, NewLaser(game.xLoc+65, game.yloc+25, game.laserPict))
 	}
 	if game.moveUp && game.yloc >= 5 {
-		game.yloc -= 3
+		game.yloc -= 5
 	}
 	if game.moveDown && game.yloc <= 940 {
-		game.yloc += 3
+		game.yloc += 5
 	}
 	return nil
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/audio"
+	"golang.org/x/image/font"
 )
 
 type GameStruct struct {
@@ -17,9 +18,11 @@ type GameStruct struct {
 	score           int
 	backgroundXView int
 	audioContext    *audio.Context
-	soundPlayer     *audio.Player
+	pewPewSound     *audio.Player
+	popSound        *audio.Player
 	lasers          []LaserStruct
 	enemies         []EnemyStruct
+	typeface        font.Face
 }
 
 type LaserStruct struct {
@@ -34,9 +37,4 @@ type EnemyStruct struct {
 	xLoc  int
 	yLoc  int
 	//deltaX int
-}
-
-type GameSoundsStruct struct {
-	audioContext *audio.Context
-	soundPlayer  *audio.Player
 }
