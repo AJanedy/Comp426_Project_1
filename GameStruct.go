@@ -5,9 +5,9 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/audio"
 )
 
-type SpaceShooter struct {
+type GameStruct struct {
 	player          *ebiten.Image
-	xloc            int
+	xLoc            int
 	yloc            int
 	background      *ebiten.Image
 	enemyPict       *ebiten.Image
@@ -18,25 +18,25 @@ type SpaceShooter struct {
 	backgroundXView int
 	audioContext    *audio.Context
 	soundPlayer     *audio.Player
-	lasers          []Shot
-	enemies         []Enemy
+	lasers          []LaserStruct
+	enemies         []EnemyStruct
 }
 
-type Shot struct {
-	laser  *ebiten.Image
-	xLoc   int
-	yLoc   int
-	deltaX int
+type LaserStruct struct {
+	laser *ebiten.Image
+	xLoc  int
+	yLoc  int
+	//deltaX int
 }
 
-type Enemy struct {
+type EnemyStruct struct {
 	enemy *ebiten.Image
 	xLoc  int
 	yLoc  int
 	//deltaX int
 }
 
-type GameSounds struct {
+type GameSoundsStruct struct {
 	audioContext *audio.Context
 	soundPlayer  *audio.Player
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/audio"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"math/rand"
 )
 
 func main() {
@@ -26,21 +27,21 @@ func main() {
 	if err != nil {
 		fmt.Println("Unable to load laser image", err)
 	}
-	allLasers := make([]Shot, 0, 20)
+	allLasers := make([]LaserStruct, 0, 20)
 
 	enemyPict, _, err := ebitenutil.NewImageFromFile("Titan.png")
 	if err != nil {
 		fmt.Println("Unable to load enemy ship", err)
 	}
-	allEnemies := make([]Enemy, 0, 5)
+	allEnemies := make([]EnemyStruct, 0, 5)
 	for i := 0; i < cap(allEnemies); i++ {
-		allEnemies = append(allEnemies, NewEnemy(928, 928, enemyPict))
+		allEnemies = append(allEnemies, NewEnemy(rand.Intn(928)+928, rand.Intn(928), enemyPict))
 	}
 	const SOUND_SAMPLE_RATE = 48000
 	soundContext := audio.NewContext(SOUND_SAMPLE_RATE)
 
-	thisGameInstance := SpaceShooter{
-		player: playerPict, xloc: 15, yloc: 500,
+	thisGameInstance := GameStruct{
+		player: playerPict, xLoc: 15, yloc: 500,
 		background:   backgroundPict,
 		enemyPict:    enemyPict,
 		laserPict:    laserPict,

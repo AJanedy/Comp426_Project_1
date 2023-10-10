@@ -2,13 +2,12 @@ package main
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
-	"math/rand"
 )
 
-func NewEnemy(MaxWidth int, MaxHeight int, image *ebiten.Image) Enemy {
-	return Enemy{
+func NewEnemy(MaxWidth int, MaxHeight int, image *ebiten.Image) EnemyStruct {
+	return EnemyStruct{
 		enemy: image,
-		xLoc:  rand.Intn(MaxWidth),
-		yLoc:  rand.Intn(MaxHeight),
+		xLoc:  MaxWidth,
+		yLoc:  MaxHeight,
 	}
 }

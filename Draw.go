@@ -5,7 +5,7 @@ import (
 	_ "image/png"
 )
 
-func (game *SpaceShooter) Draw(screen *ebiten.Image) {
+func (game *GameStruct) Draw(screen *ebiten.Image) {
 	drawOps := ebiten.DrawImageOptions{}
 	const repeat = 3
 	backgroundWidth := game.background.Bounds().Dx()
@@ -17,7 +17,7 @@ func (game *SpaceShooter) Draw(screen *ebiten.Image) {
 		screen.DrawImage(game.background, &drawOps)
 	}
 	drawOps.GeoM.Reset()
-	drawOps.GeoM.Translate(float64(game.xloc), float64(game.yloc))
+	drawOps.GeoM.Translate(float64(game.xLoc), float64(game.yloc))
 	screen.DrawImage(game.player, &drawOps)
 	for _, laser := range game.lasers {
 		drawOps.GeoM.Reset()
@@ -36,9 +36,10 @@ func (game *SpaceShooter) Draw(screen *ebiten.Image) {
 	//if err != nil {
 	//	fmt.Println("Unable to load laser image", err)
 	//}
+	//
 	//DrawCenteredText(screen, font, "Score: "+strconv.Itoa(game.score), 500, 10)
 }
 
-func (game SpaceShooter) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
+func (game GameStruct) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
 	return outsideWidth, outsideHeight
 }
